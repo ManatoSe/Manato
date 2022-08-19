@@ -1,108 +1,119 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>コメント</title>
-</head>
-<body>
-    <h1>ようこそ！Manato制作の掲示板へ！</h1>
-    <p>名前・コメント(何でも良い)・パスワード(削除と編集に必要なので覚えてね,aaaとかで大丈夫)、全て入力してボタンを押すと下部に投稿内容が表示される<br>
-    削除は、対象番号とパスワードの両方を入力し、編集はそれに追加で編集内容を入力することで実行可能</p>
-    <form action="" method="post">
-        <p>名前を入力</p>
-        <input type="text" name="name"><?php if(isset($editname)) {echo $editname;} ?>
-        <p>コメントの入力</p>
-        <input type="text" name="str"><?php if(isset($editstr)) {echo $editstr;} ?>
-        <p>パスワードを設定してください</p>
-        <input type="text" name="pass">
-        <input type="submit" value="コメント"><br>
-    </form>
-    <p>------------------------------------------------------------------------------------</p>
-    <form action="" method="post">
-        <p>削除したい番号を指定</p>
-        <input type="number" name="cut">
-        <p>そのパスワードを入力してください</p>
-        <input type="text" name="pass1">
-        <input type="submit" value="削除"><br>
-    </form>
-    <p>------------------------------------------------------------------------------------</p>
-    <form action="" method="post">
-        <p>編集したい番号を指定</p>
-        <input type="number" name="edi">
-        <p>編集するコメントの入力</p>
-        <input type="text" name="edistr">
-        <p>そのパスワードを入力してください</p>
-        <input type="text" name="pass2">
-        <input type="submit" value="編集"><br>
-    </form>
-    <p>------------------------------------------------------------------------------------</p>
-    <?php
-        $num = 1;
-        $date = date("Y/m/d/ H:i:s");
-        $filename="m3-5.txt";
-        
-        
-        if(!empty($_POST["name"])&& !empty($_POST["str"]) && !empty($_POST["pass"])){
-            $name = $_POST["name"];
-            $str = $_POST["str"];
-            $pass = $_POST["pass"];
-            
-            $fp = fopen($filename,"a");
-            $count = count( file( $filename ) );
-            if($count >= 1){
-                $num = $num + $count;
-            }
-            fwrite($fp, $num."<>".$name."<>".$str."<>".$date."<>".$pass."<>".PHP_EOL);
-            fclose($fp);
-            
-        } else if( !empty($_POST["edi"]) && !empty($_POST["edistr"]) && !empty($_POST["pass2"])){
-            $edi = $_POST["edi"];
-            $edistr = $_POST["edistr"];
-            $pass2 = $_POST["pass2"];
-            $lines = file($filename);
-            $fp = fopen($filename, "w");
-            foreach ($lines as $line) {
-                $de = explode("<>", $line);
-                if ($de[0] == $edi) {
-                    if($pass2 == $de[4]){
-                        fwrite($fp, $edi."<>".$de[1]."<>".$edistr."<>".$date."<>".$de[4]."<>".PHP_EOL);
-                    }else{
-                        fwrite($fp, $edi."<>".$de[1]."<>".$de[2]."<>".$de[3]."<>".$de[4]."<>".PHP_EOL);
-                    }
-                } else {
-                    fwrite($fp, $line);
-                }
-            }
-            fclose($fp);
-            
+<?php
+// グローバル変数
+$file = "m3_5UP.txt";
+$date = date("Y/m/d H:i:s");
+
+// 投稿機能
+if(!empty($_POST["comment"]) && !empty($_POST["name"])&&!empty($_POST["upda"])&&!empty($_POST["pass"])){
+    
+    //$file_arrはfopenより先に書かないといけないらしい
+    $upda = $_POST["upda"];
+    $file_arr = file($file);
+    $fp = fopen($file, "w");
+    $name1 = $_POST["name"];
+    $comment1 = $_POST["comment"];
+    $pass = $_POST["pass"];
+    foreach ($file_arr as $row) {
+        $r = explode("<>", $row);
+        if ($r[0] == $upda&&$r[4]==$pass) {
+            fwrite($fp, $r[0]."<>".$name1."<>".$comment1."<>".$date."<>".$pass."<>".PHP_EOL);
+        }else{
+            fwrite($fp, $row);
         }
-        if(!empty($_POST["cut"]) && !empty($_POST["pass1"])){
-            $cut = $_POST["cut"];
-            $pass1 = $_POST["pass1"];
-            $lines = file($filename);
-            $fp = fopen($filename,"w");
+    }
+    fclose($fp);
+    
+}else if (!empty($_POST["comment"]) && !empty($_POST["name"])&&!empty($_POST["pass"])) {
+    $comment = $_POST["comment"];
+    $name = $_POST["name"];
+    $pass = $_POST["pass"];
+    $fp_all = fopen($file, "a");
+    $data = file_get_contents($file);
+    $file_data = explode("\n", $data);
+    $count = count($file_data);
+    fwrite($fp_all, $count++ . "<>" . $name . "<>" . $comment . "<>" . $date . "<>" .$pass."<>". PHP_EOL);
+    fclose($fp_all);
+}
+    
+
+//削除機能
+if(!empty($_POST["deleteId"])&&!empty($_POST["pass1"])){
+            $cut = $_POST["deleteId"];
+            $pass = $_POST["pass1"];
+            $lines = file($file);
+            $fp = fopen($file,"w");
             $cou = 1;
             foreach ($lines as $line) {
                 $de = explode("<>",$line);
-                if ($cut == $de[0] && $pass1 == $de[4]) {
-                    
+                if ($cut == $de[0]&&$pass==$de[4]) {
+
                 }else{
-                    fwrite($fp,$cou."<>".$de[1]."<>".$de[2]."<>".$de[3]."<>".$de[4]."<>".PHP_EOL);
+                    fwrite($fp,$cou."<>".$de[1]."<>".$de[2]."<>".$de[3]."<>".$de[4]."<>". PHP_EOL);
                     $cou++;
                 }
-                
             }
             fclose($fp);
-            
-        }
-        if(file_exists($filename)){
-            $lines = file($filename,FILE_IGNORE_NEW_LINES);
-            foreach($lines as $line){
-                $ex = explode("<>", $line);
-                echo $ex[0]."：".$ex[1]."「".$ex[2]."」".$ex[3]."<br>";
-            }
-        }
-        
-    ?>
+}
+
+//編集が押されたとき
+if (!empty($_POST["updateId"])&&!empty($_POST["pass2"])) {
+ $update = $_POST["updateId"];
+ $pass = $_POST["pass2"];
+ $name2="";
+ $comment2="";
+ $id2 = "";
+ $file_arr = file($file);
+ foreach ($file_arr as $row) {
+     $r = explode("<>", $row);
+  if ($r[0] == $update && $r[4]==$pass) {
+      $name2 = $r[1];
+      $comment2 = $r[2];
+      $id2 = $r[0];
+  }
+ }
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<body>
+ <form action="" method="post">
+  名前：<input type="text" name="name" value="<?php if(!empty($_POST["updateId"])){echo $name2;}?>"><br>
+  コメント：<input type="text" name="comment" value="<?php if(!empty($_POST["updateId"])){echo $comment2;}?>"><br>
+  パスワード：<input type="text" name="pass">
+  <input type="submit" value="送信">
+  <input type="hidden" name="upda" value="<?php if (!empty($_POST["updateId"])) { echo $id2;} ?>" />
+ </form>
+ <br>
+ <form action="" method="post">
+        削除対象番号：<input type="number" name="deleteId"><br>
+        パスワード：<input type="text" name="pass1">
+        <input type="submit" value="削除"><br>
+    </form>
+    <form action="" method="post">
+        編集対象番号：<input type="number" name="updateId"><br>
+        パスワード：<input type="text" name="pass2">
+        <input type="submit" value="編集"><br>
+    </form>
+ <br>
+
+ <?php
+ if(file_exists($file)){
+ $file_arr = file($file);
+ foreach ($file_arr as $file_txt) {
+  $file_split = explode("<>", $file_txt);
+  $id = $file_split[0];
+  $name = $file_split[1];
+  $comment = $file_split[2];
+  $date = $file_split[3];  
+  print_r($id . "：" . $name . "「" . $comment . "」" . $date);
+  echo "<br>";
+ }
+ }
+ ?>
 </body>
+
 </html>
