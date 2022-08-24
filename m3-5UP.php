@@ -196,8 +196,9 @@ if (!empty($_POST["updateId"])&&!empty($_POST["pass2"])) {
  <br>
 
     
-/*全部のファイル内容を表示するphp。一番下の方が見やすいかなと思うので、下に書く。*/
+
  <?php
+    /*全部のファイル内容を表示するphp。一番下の方が見やすいかなと思うので、下に書く。*/
  if(file_exists($file)){
  $file_arr = file($file);
  foreach ($file_arr as $file_txt) {
