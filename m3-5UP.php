@@ -195,8 +195,6 @@ if (!empty($_POST["updateId"])&&!empty($_POST["pass2"])) {
     </form>
  <br>
 
-    
-
  <?php
     /*全部のファイル内容を表示するphp。一番下の方が見やすいかなと思うので、下に書く。*/
  if(file_exists($file)){
