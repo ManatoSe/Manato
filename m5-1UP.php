@@ -52,7 +52,7 @@ htmlのPOSTを送るフォーム、if(!empty~~~)の部分はMission3-5をコピ�
           　(':name', $name, PDO::PARAM_STR)
             「:name」はUPDATEで取得したデータで、$nameはPOSTで送られたものを入れた変数で、前者を後者に差し替える指示を出してる。
         */
-        if(!empty($_POST["name"])&& !empty($_POST["comment"]) && !empty($_POST["pass"])&&!empty($_POST["upda"]){
+        if(!empty($_POST["name"])&& !empty($_POST["comment"]) && !empty($_POST["pass"])&&!empty($_POST["upda"])){
             
             /*$変数名はできればテーブル名と同じ方が良いよ！*/
             $id = $_POST["upda"];
