@@ -43,7 +43,7 @@ htmlのPOSTを送るフォーム、if(!empty~~~)の部分はMission3-5をコピ�
         POSTで送られてきたものを変数に入れる。変数名は何でもいいが、できればテーブルと同じ名前にした方が分かりやすい。
         編集の方法：
         　'UPDATE m51 SET name =:name,comment=:comment,time=:time, pass=:pass WHERE id=:id';
-          UPDATE DBのテーブル名(31行目でCREATEした名前) 
+          UPDATE DBのテーブル名(CREATEで指定した名前) 
           SET テーブルの各データ名(name=:name等) でWHEREで探した場所のデータを取得
           WHERE id=:id(idが一致するものを探索)
           
@@ -146,7 +146,7 @@ htmlのPOSTを送るフォーム、if(!empty~~~)の部分はMission3-5をコピ�
         /*
         Mission4参照。
         注意点は、「'delete from m51 where id=:id && pass=:pass'」の書き方
-        deleat DB名
+        deleat from DB名
         where　何が一致した時に削除するか（今回はidとpass、where複数選択の時は「&&」を使う）
         */
         if(!empty($_POST["cut"]) && !empty($_POST["pass1"])){
@@ -207,3 +207,31 @@ htmlのPOSTを送るフォーム、if(!empty~~~)の部分はMission3-5をコピ�
     ?>
 </body>
 </html>
+
+<!--
+追記1：
+今回は、削除機能を使っても、SQLの「AUTO_INCREMENT PRIMARY KEY」を使っているので、数字が戻って同じ数字（例えば1、3、3）になることはない。
+逆に言えば、削除したところに穴ができる(例えば1、3、4で「2」にもう入れられない)が、気にしないなら、無視していい。というか、今回は無視してた。
+ただ、表示するときに数字が飛んでるのが、見た目が悪いと思うなら、
+最後の<?php?>の表示機能のところで、foreachの前に「$count=1;」を定義して、foreach内部で「$count++」しながら回して、「$row['id']」を「$count」に差し替えれば、見た目は修正できる。
+ただし、編集機能、削除機能でIDは必要なので、後ろにくっつけないと、本来操作したいものと違うものを操作することになるので気をつけて。
+例：
+    <?php
+        $count=1;
+        $sql = 'SELECT * FROM m51';
+        $stmt = $pdo->query($sql);
+        $results = $stmt->fetchAll();
+        foreach ($results as $row){
+            echo $count.':';
+            echo $row['name'].'「';
+            echo $row['comment'].'」';
+            echo $row['time'].'(ID';
+            echo $row['id'].')<br>';
+            echo "<hr>";
+        }
+    ?>
+
+別パターンは、「AUTO_INCREMENT PRIMARY KEY」を使わない方法かな。
+それで、Mission3-5同様、削除では削除機能使わずに、DBを配列化、DB自体削除、foreachか何かで配列データ取り出しながら、書き込み機能でIDを前に詰めていく。
+でもコードも多くなるし、気にしないのが一番だと思う。時間あればやってみて。そしてできたら皆に共有お願い。
+-->
