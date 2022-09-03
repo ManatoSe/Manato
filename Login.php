@@ -89,13 +89,13 @@
                     /*上でSessionをスタートしたので、ここで閉じなければいけない。そういうもんだと思って、とにかく書いて。 */
                     session_write_close();
 
-                    /*header("Locatin:絶対パス")で画面遷移し、exit();で必ず閉じる。
+                    /*header("Location:絶対パス")で画面遷移し、exit();で必ず閉じる。
                     　・絶対パスの取得
                     　仮にMain.phpに遷移したい場合
                     　1：Main.phpを実行(これはLogin.phpなので別のファイルを作って実行するということ)
                     　2：何も処理を書いてなくてもURLは取得できる(「http～～～/Main.php」的なものが取得できるはずで、それが絶対パス)
                     　3：Location: の右側にコピペ */
-                    header("Location:絶対パスを取得してそのまま書き込む");
+                    header("Location:http////Main.php");
                     exit();
                     break;
                 }
