@@ -11,7 +11,7 @@
     パスワード:<input type="password" name="pass">
     <input type="submit" value="ログイン"><br>
 
-    新規登録はこちら
+    新規登録はこちら<br>
     <form action="" method="post">
     登録する名前の入力:<input type="text" name="newname"><br>
     パスワードの設定:<input type="text" name="newpass">
