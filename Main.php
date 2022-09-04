@@ -87,7 +87,14 @@
                     //一番上でSessionした$pass1と一致するパスワードを探索
                     if($pass1 == $row['pass']){
                         $comment2=$row['comment'];
+                        
+                        /*str_replace('文字列', '', 変数)で、変数の中に文字列があったら、それを削除する。
+                        上記のままだと<textarea>で入れた改行コード「<br />」が出てくる。
+                        ↓の一文書かないで一度実行してみると分かる。
+                        それを削除するための一文が「$comment2 = str_replace('<br />', '', $comment2);」。
+                        */
                         $comment2 = str_replace('<br />', '', $comment2);
+                        
                         $id2 = $row['id'];
                     }
                 }
