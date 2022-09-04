@@ -87,6 +87,7 @@
                     //一番上でSessionした$pass1と一致するパスワードを探索
                     if($pass1 == $row['pass']){
                         $comment2=$row['comment'];
+                        $comment2 = str_replace('<br />', '', $comment2);
                         $id2 = $row['id'];
                     }
                 }
