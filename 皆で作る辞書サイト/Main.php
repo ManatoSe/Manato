@@ -1,22 +1,32 @@
 <?php
+
+    /*便利なコードをまとめているファイル「IncludeModel.php」をインクルードファイルに入れて、使い回せるようにしている*/
     include('./IncludeModel.php');
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
+    
+    <!-- cssファイルの読み込み -->
     <link rel="stylesheet" href="Design.css">
+    
     <title>Mission7.Main</title>
 </head>
 <body>
 <?php
+
+/* 
+あ段を全て表示するプログラム
+あ段が入ったListを使って一文字ずつ表示していく
+いちいち書かなくても良くて楽
+*/ 
 function gyou($str, $int){
     $moji = $str;
     $num = $int;
     return "<li><form method=\"post\" name=\"form".$int."\" action=\"Dictionary.php\">
     <input type=\"hidden\" name=\"gyou\" value=\"".$moji."\">
     <a href=\"javascript:form".$int.".submit()\">".$moji."行</a></form></li>";
-    
 }
 ?>
 <div id="pagebody">
@@ -35,9 +45,20 @@ function gyou($str, $int){
     ＊平がな検索<br>
     <div id="gyou">
     <?php
+        
+    /*
+    24行目のfanction()発動のためのList
+    */
     $head = array("あ", "か", "さ", "た", "な", "は", "ま", "や", "ら", "わ");
     $count = 1;
+    
+    /*
+    Listの中身を一つずつ入れながら、24行目のfanction()を起動して
+    あ段に遷移するリンクを作成していく
+    */
     foreach($head as $he){
+        
+        /*5文字ごとに改行したいので、countが6のときに改行*/
         if($count == 6){
             echo "</div><br><div id=\"gyou\">";
         }
