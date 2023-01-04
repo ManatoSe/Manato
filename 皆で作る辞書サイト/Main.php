@@ -58,7 +58,6 @@ function gyou($str, $int){
     */
     foreach($head as $he){
         
-        /*5文字ごとに改行したいので、countが6のときに改行*/
         if($count == 6){
             echo "</div><br><div id=\"gyou\">";
         }
