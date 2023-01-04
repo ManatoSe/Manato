@@ -1,0 +1,119 @@
+@charset "utf-8";
+
+* {
+	margin:0; padding:0; /*全要素のマージン・パディングをリセット*/
+}
+body {
+	background-color:springgreen; /*ページ全体の背景色*/
+	font-size:100%; /* フォントサイズを95%にする */
+	font-family: "ＭＳ ゴシック",sans-serif; /* フォントの種類をゴシック系にする */
+	line-height:1.5;  /* 行の高さを1.5倍にする */
+    color:#333333; /* 文字色を濃い目のグレーにする */
+}
+div#pagebody {
+	width:1000px; margin:0 auto; /*内容全体をセンタリング*/
+	background-color:#ffffff; /*内容全体の背景色*/
+}
+
+/*title*/
+ul#title{
+    text-align:center;		/*テキストをセンター揃えにする*/
+    font-size:200%; /* フォントサイズを95%にする */
+    color:#191970; /* 文字色を濃い目のグレーにする */
+    background-color:#ffffe0;		/*背景色*/
+}
+
+ul#select{
+    font-size:70%; /* フォントサイズを95%にする */
+}
+
+
+
+.Main {
+  display: flex;
+}
+.left {
+
+  font-size:150%; /* フォントサイズを120%にする */
+  flex-grow: 1;
+  width: 740px;
+  margin:5px 30px;
+  margin-bottom: 10px;
+  background: #ffffff;
+}
+.right {
+  flex-grow: 1;
+  width: 200px;
+  height: 240px;
+  margin-bottom: 10px;
+  background: #eeeeee;
+}
+
+ul#gyou {
+	width:150px; height:50px; 	/*メインメニュー部分の幅と高さ*/
+	margin:0px 0px; 		/*上下マージン0px、左右マージン20px*/
+}
+#gyou li {
+	list-style-type:none;		/*リストマーカー無しにする*/
+	display:inline;			/*リスト項目をインライン表示にする*/
+	float:left;			/*リスト項目を横に並べる*/
+}
+#gyou li form {
+    font-size:180%; /* フォントサイズを120%にする */
+	display:block;			/*リンク部分をブロック表示にする*/
+	width:150px; height:50px;	/*幅と高さ*/
+	padding:15px 0px 0px 0px;	/*上パディング*/
+	text-align:center;		/*テキストをセンター揃えにする*/
+}
+
+
+/*Main.phpの中身について*/
+
+
+ul#menu {
+	width:90px; height:50px; 	/*メインメニュー部分の幅と高さ*/
+	margin:5px 5px; 		/*上下マージン0px、左右マージン20px*/
+}
+#menu li {
+	list-style-type:none;		/*リストマーカー無しにする*/
+	display:inline;			/*リスト項目をインライン表示にする*/
+}
+#menu li a {
+	background-color:darkgreen;		/*背景色*/
+	color:#ffffff;			/*文字色*/
+	display:block;			/*リンク部分をブロック表示にする*/
+	width:190px; height:30px;	/*幅と高さ*/
+	padding:15px 0px 0px 0px;	/*上パディング*/
+	text-align:center;		/*テキストをセンター揃えにする*/
+	text-decoration:none;		/*リンク部分を下線無しにする*/
+}
+#menu li a:hover {
+	background-color:teal; 	/*リンクにマウスが乗ったら背景色を変更する*/
+}
+
+
+
+/*Dictionary.php*/
+
+ul#gyouD {
+	width:120px; height:50px; 	/*メインメニュー部分の幅と高さ*/
+	margin:0px 0px; 		/*上下マージン0px、左右マージン20px*/
+}
+#gyouD li {
+	list-style-type:none;		/*リストマーカー無しにする*/
+	display:inline;			/*リスト項目をインライン表示にする*/
+	float:left;			/*リスト項目を横に並べる*/
+}
+#gyouD li form {
+    font-size:180%; /* フォントサイズを120%にする */
+	display:block;			/*リンク部分をブロック表示にする*/
+	width:120px; height:50px;	/*幅と高さ*/
+	padding:15px 0px 0px 0px;	/*上パディング*/
+	text-align:center;		/*テキストをセンター揃えにする*/
+}
+
+ul#meanings{
+    font-size:70%; /* フォントサイズを120%にする */
+}
+
+
