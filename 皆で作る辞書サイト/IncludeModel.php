@@ -3,6 +3,9 @@
     $username = "";
     $pass = "";
     session_start();
+
+    /*ログインした場合に名前等が表示できるようになる
+    ログイン状態で編集や新語登録ができるようにしたいので、パスワードや名前は使いまわせるようにする*/
     if(isset($_SESSION['username'])&&isset($_SESSION['id'])&&isset($_SESSION['pass'])){
         
         $id = $_SESSION['id'];
@@ -14,9 +17,10 @@
     
     $date = date("Y/m/d/H:i:s");
     
-    $dsn = 'mysql:dbname=tb240189db;host=localhost';
-    $user = 'tb-240189';
-    $password = 'gsa8auKbX7';
+    /*データベースの接続、include関数にすれば、いちいち接続のコードを書かなくてよい*/
+    $dsn = 'データベース';
+    $user = 'ユーザー名';
+    $password = 'パスワード';
     $pdo = new PDO($dsn,$user,$password,array(PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING));
     
     //Dictionary Infomation
