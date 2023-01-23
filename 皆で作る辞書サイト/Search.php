@@ -24,10 +24,16 @@ if(!empty($_POST["whatword"])){
     <?php
         echo "<ul id=\"meanings\">";
         $str = "";
+        
+        /*データベースから単語を引っ張ってくる*/
         $sql1 = 'SELECT * FROM word8';
         $stmt = $pdo->query($sql1);
         $results = $stmt->fetchAll();
+        
+        /*foreachで一致する単語を探す*/
         foreach ($results as $row){
+            
+            /*検索したワードが一致した場合にそれを表示し、elseのときは不存在を通知する*/
             if ($whatword== $row["yomi"]) {
                 $str=
                  "・".$row['word']."(".$row['yomi'].")<br>「".$row['meaning']."」<br>"."最終編集者：".$row['name']."(投稿日：".$row['date'].")<br>".
