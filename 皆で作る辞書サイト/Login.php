@@ -2,6 +2,7 @@
     include('./IncludeModel.php');
     $nam = "";
     $pas = "";
+    /*新規登録から送信された場合に、名前とパスワードを自動的に登録する*/
     if(!empty($_POST["nam"])&&!empty($_POST["pas"])){
         $nam = $_POST["nam"];
         $pas = $_POST["pas"];
@@ -25,15 +26,22 @@
     <input type="submit" value="ログイン"><br>
     
     <?php
-    
+        
+        /*POSTで送った名前とパスワードを取得*/
         if(!empty($_POST["name"])&& !empty($_POST["pass"])){
             $name = $_POST["name"];
             $pass = $_POST["pass"];
+            
+            /*データベースに接続し、変数resultにユーザー一覧を入れる*/
             $sql = 'SELECT * FROM user7';
             $stmt = $pdo->query($sql);
             $results = $stmt->fetchAll();
             foreach ($results as $row){
+                
+                /*名前・パスワードが一致するものがあるかどうかを判定し、あればログインは完了し、Main.phpのメイン画面へ移動*/
                 if($row['username']==$name && $row['pass']==$pass){
+                    
+                    /*ログイン時の名前やID、パスワードは使いまわせるようにincludeに入れておく*/
                     $_SESSION['id']=$row['id'];
                     $_SESSION['username'] = $name;
                     $_SESSION['pass'] = $row['pass'];
