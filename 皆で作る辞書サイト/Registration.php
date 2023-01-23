@@ -24,7 +24,8 @@
     <br>
     
     <?php
-        
+    
+    /*データベースを開く*/
     $user7 = "CREATE TABLE IF NOT EXISTS user7"
     ." ("
     ."id INT AUTO_INCREMENT PRIMARY KEY,"
@@ -45,6 +46,8 @@
             $username = $nam;
             $pass = $pas;
             $sql -> execute();
+            
+            /*登録が完了すれば、以下のような画面が出て、ログイン画面に移動することができる*/
             echo "**************************************************<br>";
             echo "新規登録完了！".$nam."さん、よろしくね！<br>";
             echo "ログイン画面へ<form method=\"post\" name=\"form1\" action=\"Login.php\">
