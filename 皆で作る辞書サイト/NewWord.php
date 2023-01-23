@@ -39,11 +39,15 @@
     
     if(!empty($_POST["word"])&&!empty($_POST["yomi"])&&!empty($_POST["meaning"])){
     if($username!=""&&$pass!=""){
+    /*読みがひらがなかを判定*/
     if (preg_match('/^[ぁ-ゞ]+$/u', $_POST["yomi"])) {
+        
+        /*登録したい単語の読みや意味などを取得していく*/
         $word1 = $_POST["word"];
         $yomi1 = $_POST["yomi"];
         $meaning1 = nl2br($_POST["meaning"]);
         
+        /*データベースに書いていく処理*/
         $sql = $pdo -> prepare("INSERT INTO word8 (word, yomi,meaning,date,name) VALUES (:word, :yomi, :meaning, :date, :name)");
         $sql -> bindParam(':word', $word, PDO::PARAM_STR);
         $sql -> bindParam(':yomi', $yomi, PDO::PARAM_STR);
