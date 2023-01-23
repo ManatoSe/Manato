@@ -28,10 +28,14 @@
         
         echo "<ul id=\"meanings\">";
         
+        /*データベースの読みを取得しソートする*/
         $sql1 = 'SELECT * FROM word8 ORDER BY yomi';
         $stmt = $pdo->query($sql1);
         $results = $stmt->fetchAll();
         $int = 1;
+        
+        /*取得した単語一覧を順番に表示していく
+        編集者、投稿日等も表示される*/
         foreach ($results as $row){
             if (preg_match("/^$moji/", $row["yomi"])) {
             echo "・".$row['word']."(".$row['yomi'].")<br>「".$row['meaning']."」<br>"."最終編集者：".$row['name']."(投稿日：".$row['date'].")<br>";
