@@ -10,20 +10,25 @@
 </head>
 <body>
     <?php
+    
+    /*ここは、POSTで送られてきた行（あ行等）を取得している*/
     $gyou = "";
     if(!empty($_POST["gyou"])){
         $gyou = $_POST['gyou'];
     }
     ?>
     <?php
+    
+    /*指定の行の文字から始まる言葉を一覧表示する*/
     function result($str, $int){
         $moji = $str;
         $num = $int;
         $word1 = array("");
+        
+        /*文字をPOST送信し、Meaning.phpに遷移し、その文字から始まる単語の意味などを表示する*/
         return "<li><form method=\"post\" name=\"form".$int."\" action=\"Meaning.php\">
         <input type=\"hidden\" name=\"moji\" value=\"".$moji."\">
         <a href=\"javascript:form".$int.".submit()\">".$moji."</a></form></li>";
-        
     }
     ?>
     <div id="pagebody">
@@ -42,6 +47,8 @@
     <?php
     echo $gyou."行一覧<br>";
     $moji = $gyou;
+        
+    /*リストを用意し、POSTで送られてきた行の１文字目によってリストの内容を変更する*/
     $word1 = array("");
     if($moji == "あ"){
             $word1 = array("あ", "い", "う", "え", "お");
@@ -64,6 +71,8 @@
         }else if($moji == "わ"){
             $word1 = array("わ", "を", "ん");
         }
+    
+    /*選択した行5文字を表示する*/
     $cou = 0;
     foreach($word1 as $w){
         $res = result($w, $cou);
