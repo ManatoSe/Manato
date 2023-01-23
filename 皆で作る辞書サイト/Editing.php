@@ -24,6 +24,8 @@
     </ul><br>
     <?php
     if($username!=""){
+    
+    /*単語の存在を確認し、あれば編集機能を表示する*/
     if(!empty($_POST["word"])){
         $word = $_POST["word"];
         
@@ -45,6 +47,7 @@
             }
         }
         if($newword!=""&&$newyomi!=""&&$newmeaning!=""){
+            
         //word, yomi, meaningをそれぞれいれたフォームを作る
         echo "<form action=\"\" method=\"post\">
         ・編集してください。：<br>
